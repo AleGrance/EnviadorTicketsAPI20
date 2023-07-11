@@ -5,17 +5,8 @@ module.exports = (app) => {
   const Historicos = app.db.models.Historicos;
   const Turnos = app.db.models.Turnos;
 
-  /**
-   *
-   *
-   *  ELIMINAR TABLA HISTORICO EN PRODUCCION
-   *  ADD METODO PARA OBTENER LOS HISTORICOS POR FECHA
-   *
-   *
-   */
-
   // Ejecutar la funcion a las 20:00 de Lunes(1) a Sabados (6)
-  cron.schedule("00 20 * * 1-6", () => {
+  cron.schedule("20 20 * * 1-6", () => {
     let hoyAhora = new Date();
     let diaHoy = hoyAhora.toString().slice(0, 3);
     let fullHoraAhora = hoyAhora.toString().slice(16, 21);

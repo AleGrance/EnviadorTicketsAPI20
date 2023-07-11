@@ -55,12 +55,6 @@ var tiempoRetrasoPGSQL = 10000;
 var tiempoRetrasoEnvios = 15000;
 
 module.exports = (app) => {
-  /**
-   * 
-   *  YA SE PUEDE INSTALAR Y USAR
-   *  FALTARIA AGREGAR LA FUNCION QUE GUARDA EL HISTORICO
-   * 
-   */
   const Tickets = app.db.models.Tickets;
   const Users = app.db.models.Users;
 
@@ -72,7 +66,7 @@ module.exports = (app) => {
 
     console.log("Hoy es:", diaHoy, "la hora es:", fullHoraAhora);
     console.log("CRON: Se consulta al JKMT turnos de hoy");
-    //injeccionFirebird();
+    injeccionFirebird();
   });
 
   // Trae los turnos del JKMT al PGSQL
@@ -162,6 +156,7 @@ module.exports = (app) => {
     }, tiempoRetrasoPGSQL);
   }
 
+  // Iniciar al arrancar la API
   iniciarEnvio();
 
   // Envia los mensajes
@@ -257,12 +252,20 @@ module.exports = (app) => {
           context.font = "20px Arial";
           context.fillStyle = "#34495E";
           context.textAlign = "left";
-          context.fillText("ATENCIÓN: El turno debe ser Re confirmado con 24Hs de anticipación, en caso de no hacerlo el turno queda ", 50, 1000);
+          context.fillText(
+            "ATENCIÓN: El turno debe ser Re confirmado con 24Hs de anticipación, en caso de no hacerlo el turno queda ",
+            50,
+            1000
+          );
 
           context.font = "20px Arial";
           context.fillStyle = "#34495E";
           context.textAlign = "left";
-          context.fillText("disponible para otro paciente. Para Re confirmar: 021-412-9000", 50, 1025);
+          context.fillText(
+            "disponible para otro paciente. Para Re confirmar al WhatsApp: 021-412-9000",
+            50,
+            1025
+          );
 
           // Escribe la imagen a archivo
           const buffer = canvas.toBuffer("image/png");
@@ -356,9 +359,9 @@ module.exports = (app) => {
     }
     console.log("Fin del envío");
     console.log("Luego de 1m se vuelve a consultar al PGSQL");
-    setTimeout(() =>{
+    setTimeout(() => {
       iniciarEnvio();
-    }, 10000)
+    }, 10000);
   }
 
   function updateEstatusERROR(turnoId, cod_error) {

@@ -1,5 +1,5 @@
 module.exports = {
-  database: "enviadortickets20",
+  database: "enviadortickets",
   username: "postgres",
   password: "Paraguay40*",
   params: {
